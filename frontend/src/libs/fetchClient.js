@@ -24,7 +24,13 @@ export const fetchClient = async (url, options = {}) => {
         return fetchClient(url, options);
       }
       console.error("Fetch error:", response);
-      return response;
+      let errorData = null;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        errorData = null;
+      }
+      return { status: response.status, ok: false, errorData, statusText: response.statusText };
     }
 
     if (response.status === 204) {
@@ -61,7 +67,13 @@ export const fetchClientForm = async (url, options = {}) => {
         return fetchClientForm(url, options);
       }
       console.error("Fetch error:", response);
-      return response;
+      let errorData = null;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        errorData = null;
+      }
+      return { status: response.status, ok: false, errorData, statusText: response.statusText };
     }
 
     return response.json();

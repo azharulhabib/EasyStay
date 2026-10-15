@@ -44,7 +44,7 @@ export default function OwnerSignup() {
               type="tel" 
               id="phone" 
               name="phone" 
-              placeholder="Enter your phone number"
+              placeholder="e.g. 01712345678 or +8801712345678"
               required 
             />
           </div>
@@ -55,7 +55,7 @@ export default function OwnerSignup() {
               type="password" 
               id="password" 
               name="password" 
-              placeholder="Create a password"
+              placeholder="Min 8 chars: 1 upper, 1 lower, 1 number, 1 symbol"
               required 
             />
           </div>

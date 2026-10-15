@@ -25,6 +25,14 @@ class UserSerializer(serializers.ModelSerializer):
             }
         }
         
+    def validate_password(self, value):
+        from django.core.exceptions import ValidationError as DjangoValidationError
+        try:
+            get_user_model()._pass_valid(None, value)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages if hasattr(e, 'messages') else str(e))
+        return value
+
     def create(self, validated_data):
         return get_user_model().objects.create_user(**validated_data)
     
@@ -43,42 +51,21 @@ class AdminSerializer(UserSerializer):
         model = Admin
         
     def create(self, validated_data):
-        password = validated_data['password']
-        admin = Admin.objects.create(**validated_data)
-        
-        if password:
-            admin.set_password(password)
-            admin.save()
-        
-        return admin
+        return Admin.objects.create_user(**validated_data)
         
 class CustomerSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = Customer
        
     def create(self, validated_data):
-        password = validated_data['password']
-        customer = Customer.objects.create(**validated_data)
-        
-        if password:
-            customer.set_password(password)
-            customer.save()
-        
-        return customer
+        return Customer.objects.create_user(**validated_data)
        
 class OwnerSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = Owner
     
     def create(self, validated_data):
-        password = validated_data['password']
-        owner = Owner.objects.create(**validated_data)
-        
-        if password:
-            owner.set_password(password)
-            owner.save()
-        
-        return owner
+        return Owner.objects.create_user(**validated_data)
         
 class RentalListingSerializer(serializers.ModelSerializer):
     class Meta:
