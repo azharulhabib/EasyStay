@@ -1,6 +1,12 @@
 :root {
   --navy-blue: #151B2B;
-  --gray: #666666;
+  --navy-light: #1f293d;
+  --navy-dark: #0d121d;
+  --gray: #64748b;
+  --gray-light: #f8fafc;
+  --border-color: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
 }
 
 * {
@@ -12,38 +18,49 @@
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
+  color: var(--text-main);
+  background-color: var(--gray-light);
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 .button {
   display: inline-flex;
   align-items: center;
-  padding: 12px 24px;
+  justify-content: center;
+  padding: 10px 20px;
   border-radius: 8px;
   font-weight: 500;
+  font-size: 0.95rem;
   text-decoration: none;
   cursor: pointer;
   border: none;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .button-primary {
   background-color: var(--navy-blue);
   color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.button-primary:hover {
+  background-color: var(--navy-light);
+  transform: translateY(-1px);
 }
 
 .button-outline {
   background-color: transparent;
   color: var(--navy-blue);
-  border: 1px solid var(--navy-blue);
+  border: 1px solid var(--border-color);
 }
 
-.button:hover {
-  opacity: 0.9;
+.button-outline:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
 }
-
